@@ -1,0 +1,63 @@
+@startuml 
+
+participant       Scene 
+participant       line  
+participant       theSnake  
+participant       sorter  
+participant       writer  
+participant       BubbleSorter  
+participant       Monster
+participant       Position    
+participant       randnum
+
+Scene -[#Green]> line : Line(int)
+
+loop
+    Scene -[#Green]> randnum : nextInt(int)
+    Scene -[#Green]> randnum : nextInt(int)
+    Scene -[#Green]> randnum : nextInt(int)
+    Scene -[#Green]> line : put(Linable, int)
+    line -[#Green]> line : setLinable(Linable)
+end
+
+loop
+    Scene -[#Green]> line : put(Linable,int)
+    line -[#Green]> Position : setPosition(Position)
+end
+
+Scene -[#Green]> theSnake : getTheSnake()
+
+Scene -[#Green]> sorter : BubbleSorter()
+Scene -[#Green]> theSnake : setSorter(Sorter)
+
+Scene -[#Green]> theSnake : lineUp(Line)
+theSnake -[#Green]> line : toArray()
+
+loop 
+    theSnake -[#Green]> Monster : getRank()
+end
+
+theSnake -[#Green]> sorter :load(int[]) 
+theSnake -[#Green]> sorter :sort()
+
+loop
+    sorter-[#Green]> sorter: swap(int, int)
+end
+
+theSnake -[#Green]> theSnake: parsePlan(String)
+theSnake -[#Green]> sorter :getPlan()
+
+loop 
+    theSnake -[#Green]> theSnake :execute(String)
+    theSnake -[#Green]> line : swapPosition(int,int)
+    theSnake -[#Green]> line : toString()
+end
+
+
+Scene -[#Green]> writer : BufferedWriter()
+Scene -[#Green]> writer : write()
+Scene -[#Green]> writer : flush()
+Scene -[#Green]> writer : close()
+
+@enduml
+

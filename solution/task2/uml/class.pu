@@ -1,0 +1,104 @@
+@startuml
+
+
+interface Linable{
+    void setRank(int)
+    int getRank()
+    void setPosition(Position)
+    Position getPosition()
+}
+
+class Position{
+    Linable linable
+
+    Position(Linable)
+    void setLinable(Linable)
+}
+
+class Line{
+    Position[] positions
+
+    Line(int)
+    void put(Linable,int)
+    Linable get(int)
+    void swapPosition(int,int)
+    String toArray()
+}
+
+class Snake{
+    Snake theSnake
+    Sorter sorter
+
+    Snake()
+    Snake getTheSnake()
+    void setSorter(Sorter)
+    String lineUp(Line)
+    String[] parsePlan(String)
+    void execute(String,Line)
+}
+
+class Monster{
+    int r
+    int g
+    int b
+    int rank
+    Position position
+
+    Monster(int,int,int)
+}
+
+interface Sorter{
+    void load(int[])
+    void sort()
+    String getPlan()
+}
+
+class BubbleSorter{
+    int[] a
+    String plan
+
+    void swap(int,int)
+}
+
+class QuickSorter{
+    int[] a
+    String plan
+
+    int partition(int,int)
+    void quickSort(int,int)
+    void swap(int,int)
+}
+
+
+class SelectSorter{
+    int[] a
+    String plan
+
+    void swap(int,int)
+}
+
+class Object{
+    String toString()
+}
+
+
+Linable --|> Object: 继承
+
+Line --> Position: 关联
+Line ..> Linable: 依赖
+Position --> Linable: 关联
+
+Monster ..|> Linable: 实现
+Monster --> Position: 关联
+
+Snake --> Sorter: 关联
+Snake ..> Line: 依赖
+Snake ..> Linable: 依赖
+
+BubbleSorter ..|> Sorter: 实现
+QuickSorter ..|> Sorter: 实现
+SelectSorter ..|> Sorter: 实现
+
+Sorter --|> Object: 继承
+
+@enduml
