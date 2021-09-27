@@ -1,0 +1,85 @@
+@startuml
+
+
+interface Linable{
+    void setPosition(Position)
+    Position getPosition()
+    int getValue()
+}
+
+class Position{
+    Linable linable
+
+    Position(Linable)
+    void setLinable(Linable)
+}
+
+class Line{
+    Position[] positions
+
+    Line(int)
+    void put(Linable,int)
+    Linable get(int)
+    String toArray()
+}
+
+class Geezer{
+    Geezer theGeezer
+    Sorter sorter
+
+    Geezer()
+    Geezer getTheGeezer()
+    void setSorter(Sorter)
+    String lineUp(Line)
+    String[] parsePlan(String)
+    void execute(String)
+}
+
+enum Gourd{
+    int r
+    int g
+    int b
+    Position position
+
+    Gourd(int,int,int)
+    Gourd getGourdByRank(int)
+    int rank()
+    void swapPosition(Gourd)
+}
+
+interface Sorter{
+    void load(int[])
+    void sort()
+    String getPlan()
+}
+
+class BubbleSorter{
+    int[] a
+    String plan
+
+    void swap(int,int)
+}
+
+class Object{
+    String toString()
+}
+
+
+Linable --|> Object: 继承
+
+Line --> Position: 关联
+Line --|> Object: 继承
+Line ..> Linable: 依赖
+Position --> Linable: 关联
+
+Gourd ..|> Linable: 实现
+Gourd --> Position: 关联
+
+Geezer --> Sorter: 关联
+Geezer ..> Line: 依赖
+
+BubbleSorter ..|> Sorter: 实现
+
+Sorter --|> Object: 继承
+
+@enduml

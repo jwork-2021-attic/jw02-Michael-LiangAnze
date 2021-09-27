@@ -1,0 +1,55 @@
+@startuml 
+
+participant       Scene 
+participant       line  
+participant       theGeezer  
+participant       sorter  
+participant       writer  
+participant       BubbleSorter  
+participant       Gourd  
+participant       Position  
+
+Scene -[#Green]> line : Line(int)
+loop 
+    Scene -[#Green]> line : put(Linable,int)
+    line -[#Green]> Position : setPosition(Position)
+end
+
+Scene -[#Green]> theGeezer : getTheGeezer()
+
+Scene -[#Green]> sorter : BubbleSorter()
+Scene -[#Green]> theGeezer : setSorter(Sorter)
+
+Scene -[#Green]> theGeezer : lineUp(Line)
+theGeezer -[#Green]> line : toArray()
+
+loop 
+    theGeezer -[#Green]> Gourd : getValue()
+    Gourd -[#Green]> Gourd : rank()
+end
+
+theGeezer -[#Green]> sorter :load(int[]) 
+theGeezer -[#Green]> sorter :sort()
+
+loop
+    sorter-[#Green]> sorter: swap(int, int)
+end
+
+theGeezer -[#Green]> theGeezer: parsePlan(String)
+theGeezer -[#Green]> sorter :getPlan()
+
+loop 
+    theGeezer -[#Green]> theGeezer :execute(String)
+    theGeezer -[#Green]> Gourd :getGourdByRank(int)
+    theGeezer -[#Green]> Gourd :swapPosition(Gourd)
+    theGeezer -[#Green]> line : toString()
+end
+
+
+Scene -[#Green]> writer : BufferedWriter()
+Scene -[#Green]> writer : write()
+Scene -[#Green]> writer : flush()
+Scene -[#Green]> writer : close()
+
+@enduml
+
